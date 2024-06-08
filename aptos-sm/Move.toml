@@ -1,0 +1,16 @@
+[package]
+name = "waste_insure"
+version = "1.0.0"
+authors = []
+
+[addresses]
+wastes_Insured_addr = "0x836de6229385dac026bf9b610e3052fd6351d4b72fadde608a83094b720bc453"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
