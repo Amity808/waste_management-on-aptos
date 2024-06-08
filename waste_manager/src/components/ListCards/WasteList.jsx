@@ -1,15 +1,13 @@
 'use client'
 import React, {useState} from 'react'
 
-;
-
 const WasteList = () => {
 
 
   
   return (
     <div>
-      <WasteFilter onSearch={handleSearch} />
+      {/* <WasteFilter onSearch={handleSearch} /> */}
       {/* {error && <ErrorAlert message={error} clear={clearmessage} />}
       {success && <OnSuccessAlert message={success} />}
       {loading && <LoadingAlert message={loading} />} */}
