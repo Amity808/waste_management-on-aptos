@@ -12,7 +12,7 @@ export const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
 const aptosConfig = new AptosConfig({ network: Network.DEVNET });
 const aptos = new Aptos(aptosConfig);
 export const moduleAddress =
-  "0x836de6229385dac026bf9b610e3052fd6351d4b72fadde608a83094b720bc453";
+  "0x3384c2b172da81a170daee6f140350eecf044cd399ecf14ef16406e93249916d";
 
 const AddWasteModal = () => {
   const [name, setName] = useState("");
@@ -31,44 +31,44 @@ const AddWasteModal = () => {
 
   const { account, signAndSubmitTransaction } = useWallet();
 
-  const fetchWaste = async () => {
-    if (!account) return [];
-    try {
-      const wasteListItems = await aptos.getAccountResource({
-        accountAddress: account?.address,
-        resourceType: `${moduleAddress}::waste_insure::WasteList`,
-      });
-      console.log(wasteListItems)
-      setAccountHasList(true);
+  // const fetchWaste = async () => {
+  //   if (!account) return [];
+  //   try {
+  //     const wasteListItems = await aptos.getAccountResource({
+  //       accountAddress: account?.address,
+  //       resourceType: `${moduleAddress}::waste_manage::WasteList`,
+  //     });
+  //     console.log(wasteListItems)
+  //     setAccountHasList(true);
 
-      // handle table
-      const tableHandle = wasteListItems.data.waste.handle;
-      // get the counter
-      const wasteCount = wasteListItems.data.waste_count;
-
-      let wastes = [];
-      let counter = 1;
-      while (counter <= wasteCount) {
-        const tableItem = {
-          key_type: "u64",
-          value_type: `${moduleAddress}::waste_insure::Waste`,
-          key: `${counter}`,
-        };
-
-        const waste = await aptos.getTableItem({
-          handle: tableHandle,
-          data: tableItem,
-        });
-        wastes.push(waste);
-        console.log(wastes);
-        counter++;
-        setWaste(wastes);
-      }
-    } catch (error) {
-      console.log(error);
-      setAccountHasList(false);
-    }
-  };
+  //     // handle table
+  //     const tableHandle = wasteListItems.waste.handle;
+  //     // get the counter
+  //     const wasteCount = wasteListItems.waste_count;
+  //     console.log("waste_count", wasteCount)
+  //     let wastes = [];
+  //     let counter = 1;
+  //     while (counter <= wasteCount) {
+  //       const tableItem = {
+  //         key_type: "u64",
+  //         value_type: `${moduleAddress}::waste_manage::Waste`,
+  //         key: `${counter}`,
+  //       };
+  //       console.log(tableItem)
+  //       const wasteTable = await aptos.getTableItem({
+  //         handle: tableHandle,
+  //         data: tableItem,
+  //       });
+  //       wastes.push(wasteTable);
+  //       console.log(wasteTable);
+  //       counter++;
+  //     }
+  //     setWaste(wastes);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setAccountHasList(false);
+  //   }
+  // };
 
   // to check if the form is filled
   const isFormFilled =
@@ -95,7 +95,7 @@ const AddWasteModal = () => {
 
     const transaction = {
       data:{
-        function:`${moduleAddress}::waste_insure::create_list`,
+        function:`${moduleAddress}::waste_manage::create_list`,
         functionArguments:[]
       }
     }
@@ -117,23 +117,23 @@ const AddWasteModal = () => {
     e.preventDefault();
     if (!account) return [];
     setTransactionInProgress(true);
-    // const transaction = {
-    //   data: {
-    //     function: `${moduleAddress}::waste_insure::register_waste`,
-    //     type_arguments: [],
-    //     functionArguments: [
-    //       wasteType,
-    //       collectionLocation,
-    //       weight,
-    //       wasteAmount,
-    //       hospitalAddress,
-    //     ],
-    //   },
-    // };
+    const transaction = {
+      data: {
+        function: `${moduleAddress}::waste_manage::register_waste`,
+        // type_arguments: [],
+        functionArguments: [
+          wasteType,
+          collectionLocation,
+          weight,
+          wasteAmount,
+          hospitalAddress,
+        ],
+      },
+    };
 
     const payload =  {
       type: "entry_function_payload",
-      function: `${moduleAddress}::waste_insure::register_waste`,
+      function: `${moduleAddress}::waste_manage::register_waste`,
       type_arguments: [],
       arguments: [
         wasteType,
@@ -159,22 +159,24 @@ const AddWasteModal = () => {
     };
 
     try {
-      const response = await signAndSubmitTransaction(payload);
-      await aptos.waitForTransaction(response.hash)
+      const response = await signAndSubmitTransaction(transaction);
+      await aptos.waitForTransaction({ transactionHash:response.hash})
       
-      let newWaste = [...tasks]
+      let newWaste = [...waste]
 
       newWaste.push(newWasteToPush)
       setWaste(newWaste)
       handleClear();
+      console.log(response)
     } catch (error) {
       console.log(error)
     }
   };
 
-  useEffect(() => {
-    fetchWaste();
-  }, [account?.address]);
+  // useEffect(() => {
+  //   fetchWaste();
+  // }, [account?.address]);
+  // console.log(waste)
 
   return (
     <div className="flex mb-10">
