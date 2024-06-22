@@ -36,7 +36,7 @@ const AddWasteModal = () => {
   //   try {
   //     const wasteListItems = await aptos.getAccountResource({
   //       accountAddress: account?.address,
-  //       resourceType: `${moduleAddress}::waste_manage::WasteList`,
+  //       resourceType: `${moduleAddress}::waste_insure::WasteList`,
   //     });
   //     console.log(wasteListItems)
   //     setAccountHasList(true);
@@ -51,7 +51,7 @@ const AddWasteModal = () => {
   //     while (counter <= wasteCount) {
   //       const tableItem = {
   //         key_type: "u64",
-  //         value_type: `${moduleAddress}::waste_manage::Waste`,
+  //         value_type: `${moduleAddress}::waste_insure::Waste`,
   //         key: `${counter}`,
   //       };
   //       console.log(tableItem)
@@ -95,7 +95,7 @@ const AddWasteModal = () => {
 
     const transaction = {
       data:{
-        function:`${moduleAddress}::waste_manage::create_list`,
+        function:`${moduleAddress}::waste_insure::create_list`,
         functionArguments:[]
       }
     }
@@ -119,7 +119,7 @@ const AddWasteModal = () => {
     setTransactionInProgress(true);
     const transaction = {
       data: {
-        function: `${moduleAddress}::waste_manage::register_waste`,
+        function: `${moduleAddress}::waste_insure::register_waste`,
         // type_arguments: [],
         functionArguments: [
           wasteType,
@@ -133,7 +133,7 @@ const AddWasteModal = () => {
 
     const payload =  {
       type: "entry_function_payload",
-      function: `${moduleAddress}::waste_manage::register_waste`,
+      function: `${moduleAddress}::waste_insure::register_waste`,
       type_arguments: [],
       arguments: [
         wasteType,
