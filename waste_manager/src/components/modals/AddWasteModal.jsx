@@ -12,7 +12,7 @@ export const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
 const aptosConfig = new AptosConfig({ network: Network.DEVNET });
 const aptos = new Aptos(aptosConfig);
 export const moduleAddress =
-  "0x3384c2b172da81a170daee6f140350eecf044cd399ecf14ef16406e93249916d";
+  "0xd99bbc55db025316c59a08c65a53c528bd5949da98b83a30335751a7172c8d16";
 
 const AddWasteModal = () => {
   const [name, setName] = useState("");

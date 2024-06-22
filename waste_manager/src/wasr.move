@@ -1,7 +1,9 @@
 
-module wastes_Insured_addr::waste_insure {
+module wastes_addr::waste_manage {
     use aptos_framework::account;
     use aptos_framework::event;
+    use aptos_framework::coin::{Self, Coin};
+    use aptos_token::token::{Self, TokenId};
     
     use std::string::String;
     use aptos_std::table::{Self, Table};

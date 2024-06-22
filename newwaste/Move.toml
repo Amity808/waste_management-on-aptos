@@ -1,15 +1,16 @@
 [package]
-name = "waste-smPatos"
+name = "waste_manage"
 version = "1.0.0"
 authors = []
 
 [addresses]
-wastes_Insured_addr='3384c2b172da81a170daee6f140350eecf044cd399ecf14ef16406e93249916d'
+waste_addr='d99bbc55db025316c59a08c65a53c528bd5949da98b83a30335751a7172c8d16'
 
 [dev-addresses]
 
 [dependencies.AptosFramework]
 git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
 subdir = "aptos-move/framework/aptos-framework"
 
 [dev-dependencies]

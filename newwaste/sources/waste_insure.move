@@ -1,5 +1,5 @@
 
-module wastes_Insured_addr::waste_insure {
+module waste_addr::waste_manage {
     use aptos_framework::account;
     use aptos_framework::event;
     
